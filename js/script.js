@@ -1,39 +1,25 @@
-/*let p = new Promise( (resolve, rechazar) => {
+function validarNuemero(resolver, rechazar){
 	setTimeout( () => {
-    resolve("la promesa se ejecuto correctamenta");
-    }, 3000);
-});
-
-p.then( (mensaje) => {
-    console.log(mensaje)
-});
-
-//Promesa
-//NPM
-//NODE JS
-
-*/
-
-
-function validarNumero(){
-    return new Promise((resolver, rechazar) => {
-      window.setTimeout(() => {
-        const b = 40;
-        const a = 10;
-        let numero = Math.round(Math.random()*(b-a)+parseInt(a))
-        if(numero%2 == 0){
-          resolver("Fue par "+numero);
+    	const max = 40;
+        const min = 10;
+        let num_alt = Math.round(Math.random() * (max - min) + min);
+        if(num_alt % 2 == 0){
+            resolver({mensaje:"El número es par!!!!!", statusCode: 200})
         }else{
-          rechazar("Fue impar "+numero)
+            rechazar({mensaje:"El número es impar!!!!!", statusCode: 500});
         }
-      }, 100);
-    });
-  }
-  
-  async function llamarFuncion(){
-    let m = await validarNumero();
-  
-    console.log(m);
-  }
+    },500);
     
-  llamarFuncion();
+}
+
+let mipromesa = new Promise(validarNuemero);
+console.log(mipromesa);
+mipromesa.then( (respuesta) => {
+	console.log("Se ejecuto correctamente la promesa")
+    console.log(respuesta);
+} ).catch( (respuesta) => {
+    console.log("Se genero un error!!!");
+    console.log(respuesta);
+} ).finally( () => {
+    console.log("Se ejecuto el finally");
+} )
