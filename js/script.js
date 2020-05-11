@@ -1,20 +1,20 @@
-function validarNuemero(resolver, rechazar){
+function validarNuemero(exito, rechazo){
 	setTimeout( () => {
     	const max = 40;
         const min = 10;
         let num_alt = Math.round(Math.random() * (max - min) + min);
         if(num_alt % 2 == 0){
-            resolver({mensaje:"El número es par!!!!!", statusCode: 200})
+            exito({mensaje:"El número es par!!!!!", statusCode: 200})
         }else{
-            rechazar({mensaje:"El número es impar!!!!!", statusCode: 500});
+            rechazo({mensaje:"El número es impar!!!!!", statusCode: 500});
         }
-    },500);
-    
+    },Math.round(Math.random() * (1000 - 500) + 500));
 }
 
 let mipromesa = new Promise(validarNuemero);
-console.log(mipromesa);
-mipromesa.then( (respuesta) => {
+let mipromesa1 = new Promise(validarNuemero);
+
+Promise.all([mipromesa, mipromesa1]).then( (respuesta) => {
 	console.log("Se ejecuto correctamente la promesa")
     console.log(respuesta);
 } ).catch( (respuesta) => {
@@ -23,3 +23,5 @@ mipromesa.then( (respuesta) => {
 } ).finally( () => {
     console.log("Se ejecuto el finally");
 } )
+
+console.log("Total de promesas:", Promise.length);
