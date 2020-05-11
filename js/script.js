@@ -8,13 +8,13 @@ function validarNuemero(exito, rechazo){
         }else{
             rechazo({mensaje:"El número es impar!!!!!", statusCode: 500});
         }
-    },Math.round(Math.random() * (1000 - 500) + 500));
+    },Math.round(Math.random() * (1000 - 500) + min));
+    
 }
 
 let mipromesa = new Promise(validarNuemero);
-let mipromesa1 = new Promise(validarNuemero);
 
-Promise.all([mipromesa, mipromesa1]).then( (respuesta) => {
+mipromesa.then( (respuesta) => {
 	console.log("Se ejecuto correctamente la promesa")
     console.log(respuesta);
 } ).catch( (respuesta) => {
@@ -24,4 +24,3 @@ Promise.all([mipromesa, mipromesa1]).then( (respuesta) => {
     console.log("Se ejecuto el finally");
 } )
 
-console.log("Total de promesas:", Promise.length);
