@@ -16,10 +16,36 @@ function llamarPromesa(){
     return new Promise(validarNuemero);
 }
 
-function funcionDeLlamado(){
+let funcionDeLlamado = async() => {
     let resultado = await llamarPromesa();
     console.log(resultado);
 }
+
+let mipromesa = new Promise((resolve, reject) => {
+	setTimeout(() => {
+            for (let index = 0; index < 50; index++) {
+                console.log(index);
+            }
+            reject("Whoops!");
+            //resolve('Termino de ejecutar la promesa 1');
+    }, 100);
+});
+
+mipromesa.then((x) => {
+    console.log('Then',x)
+}).catch((r) => {
+    console.log('Catch',r);
+})
+
+
+
+let mipromesa2 = new Promise(() => {
+	setTimeout(() => {
+          console.log("Esta es la promesa 2")
+    }, 100);
+})
+
+console.log("Se ejecuto linea de codigo 30");
 /*
 mipromesa.then( (respuesta) => {
 	console.log("Se ejecuto correctamente la promesa")
@@ -31,4 +57,4 @@ mipromesa.then( (respuesta) => {
     console.log("Se ejecuto el finally");
 } ) */
 
-funcionDeLlamado();
+//funcionDeLlamado();
